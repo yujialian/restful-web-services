@@ -42,6 +42,14 @@ public class Customer {
 	public void setBirthDate(Date birthDate) {
 		this.birthDate = birthDate;
 	}
+	
+	public boolean isSufficient(Double totalSpend) {
+		return this.walletBalance - totalSpend >= 0;
+	}
+	
+	public void spendMoney(Double spend) {
+		this.walletBalance = this.walletBalance - spend;
+	}
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + ", birthDate=" + birthDate + ", Wallet Balance" + walletBalance + "]";

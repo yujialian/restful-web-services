@@ -21,7 +21,7 @@ public class CustomersResource {
 	private CustomerService service;
 
 	@GetMapping("/users")	
-	public List<Customer> retriveAllUsers() {
+	public List<Customer> retriveAllCustomers() {
 		return service.findAll();
 	}
 	
