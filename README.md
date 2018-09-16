@@ -2,19 +2,20 @@
 A web service that support customer - supermarket  transactions.
 
 ### Environment:
-Java: 1.8
-Spring boot: 2.0.5
-Maven: 3.3.9
+Java: 1.8 <br />
+Spring boot: 2.0.5 <br />
+Maven: 3.3.9 <br />
 
 ### Preparasion
-	1. Go to [Java SE - Downloads | Oracle Technology Network | Oracle](http://www.oracle.com/technetwork/java/javase/downloads/index.html), download Java SE 8u181
+	1. Go to http://www.oracle.com/technetwork/java/javase/downloads/index.html, download Java SE 8u181
 	2. Add `export JAVA_HOME=$(/usr/libexec/java_home)` to you `.bash_profile` or `.bashrc`. (This is for Mac user, for windows, please google `Set up environment variable for java 1.8.`
 	3. Source your change by `source .bash_profile`.
+    4. Download `Postman` app as REST client.
 
 ### Usage
 1. Clone the project to your working folder by: `git clone git@github.com:yujialian/restful-web-services.git`
-2. Load the project to your IDE (`eclipse` or `intellij`), run the application.
-3. Download `Postman` app as REST client.
+2. Load the project to your IDE (`eclipse` or `intellij`) .
+3. Make sure eclipse is using `Java 1.8` JRE, Right click `project`, select `Run as` -> `Maven install`
 
 #### Create a customer:(POST http://localhost:8080/customers)
 
