@@ -31,7 +31,6 @@ public class CustomerService {
 		productsInventory.put("Imac", new Product("Imac", 3999.0, 50));
 		productsInventory.put("Accessories", new Product("Accessories", 3.99, 100));
 		
-		
 	}
 	
 	
@@ -61,19 +60,20 @@ public class CustomerService {
 	}
 	
 	/*Create a new product.*/
-	public void createProduct(Product product) {
+	public Product createProduct(Product product) {
 		if(productsInventory.containsKey(product.getProductName())) {
 			productsInventory.get(product.getProductName()).addAmount(product.getAmount());
 			productsInventory.get(product.getProductName()).setPrice(product.getPrice());
 		} else {
 			productsInventory.put(product.getProductName(), product);
 		}
+		return productsInventory.get(product.getProductName());
 	}
 	
 	/*Delete an existing product.*/
-	public Product removeProduct(Product product) {
-		if(productsInventory.containsKey(product.getProductName())) {
-			return productsInventory.remove(product.getProductName());
+	public Product removeProduct(String productName) {
+		if(productsInventory.containsKey(productName)) {
+			return productsInventory.remove(productName);
 		}
 		return null;
 	}
@@ -97,8 +97,8 @@ public class CustomerService {
 	}
 	
 	/*Retrieve orders for a specific customer.*/
-	public List<Transaction> getCustomerTransactions(String customerName) {
-		return customerTransactionHistory.get(customerName);
+	public List<Transaction> getCustomerTransactions(Customer customer) {
+		return customerTransactionHistory.get(customer.getName());
 	}
 	
 	/*Create a new order.*/
@@ -135,6 +135,19 @@ public class CustomerService {
 		}
 		
 		return false;
+	}
+	
+	/*Find an existing order.*/
+	public Transaction findTransactionById(int transactionId) {
+		
+		for(Map.Entry<String, List<Transaction>> entry: customerTransactionHistory.entrySet()) {
+			for(int i = 0; i < entry.getValue().size(); i++) {
+				if(entry.getValue().get(i).getTransactionId() == transactionId) {
+					return entry.getValue().get(i);
+				}
+			}
+		}
+		return null;
 	}
 	
 }
