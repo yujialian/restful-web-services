@@ -24,14 +24,14 @@ public class CustomersResource {
 	public List<Customer> retriveAllCustomers() {
 		return service.findAllCustomers();
 	}
-	/*
-	@GetMapping("/users/{id}")
-	public Customer retriveUser(@PathVariable int id) {
-		Customer customer = service.findOne(id);
-		if(customer == null) throw new CustomerNotFoundException("Id-" + id);
+	
+	@GetMapping("/customers/{id}")
+	public Customer retriveCustomer(@PathVariable int id) {
+		Customer customer = service.findCustomerById(id);
+		if(customer == null) throw new CustomerNotFoundException("Id-" + id + " customer not found!");
 		return customer;
 	}
-	
+	/*
 	@PostMapping("/users")
 	public ResponseEntity<Object> createUser(@RequestBody Customer customer) {
 		Customer savedCustomer = service.save(customer);
