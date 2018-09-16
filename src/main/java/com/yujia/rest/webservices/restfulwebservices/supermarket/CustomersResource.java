@@ -20,11 +20,11 @@ public class CustomersResource {
 	@Autowired
 	private CustomerService service;
 
-	@GetMapping("/users")	
+	@GetMapping("/customers")	
 	public List<Customer> retriveAllCustomers() {
-		return service.findAll();
+		return service.findAllCustomers();
 	}
-	
+	/*
 	@GetMapping("/users/{id}")
 	public Customer retriveUser(@PathVariable int id) {
 		Customer customer = service.findOne(id);
@@ -38,7 +38,7 @@ public class CustomersResource {
 		
 		/*Create the URI of the location of the resource that is created.
 		 * This will return the current request URI.
-		 * */
+		 * 
 		
 		URI location = ServletUriComponentsBuilder
 		.fromCurrentRequest()
@@ -47,5 +47,6 @@ public class CustomersResource {
 		
 		return ResponseEntity.created(location).build();
 	}
+*/
 	
 }

@@ -11,7 +11,6 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.yujia.rest.webservices.restfulwebservices.supermarket.CustomerNotFoundException;
-import com.yujia.rest.webservices.restfulwebservices.supermarket.UserNotFoundException;
 
 /*@ControllerAdvice Share exceptions across all the controller.*/
 @ControllerAdvice 

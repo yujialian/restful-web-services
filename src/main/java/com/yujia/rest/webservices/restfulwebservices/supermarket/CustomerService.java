@@ -19,11 +19,21 @@ public class CustomerService {
 	private static int transactionId = 0;
 	private static int usersCount = 3;
 	
+	/* Some test data. */
 	static {
-		customers.put("Adam", new Customer(1, "Adam", new Date(), 100.1));
-		customers.put("Eve", new Customer(2, "Eve", new Date(), 300.2));
-		customers.put("Jack", new Customer(3, "Jack", new Date(), 500.3));
+		
+		customers.put("Adam", new Customer(1, "Adam", new Date(), 10000.1));
+		customers.put("Eve", new Customer(2, "Eve", new Date(), 3020.2));
+		customers.put("Jack", new Customer(3, "Jack", new Date(), 5000.3));
+		
+		productsInventory.put("Iphone", new Product("Iphone", 1999.0, 10));
+		productsInventory.put("Macbook Pro", new Product("Macbook Pro", 2999.0, 20));
+		productsInventory.put("Imac", new Product("Imac", 3999.0, 50));
+		productsInventory.put("Accessories", new Product("Accessories", 3.99, 100));
+		
+		
 	}
+	
 	
 	public Customer createCustomer(Customer customer) {
 		if(customer.getId() == null) {
@@ -40,6 +50,14 @@ public class CustomerService {
 			}
 		}
 		return null;
+	}
+	
+	public List<Customer> findAllCustomers() {
+		List<Customer> allCustomer = new ArrayList<>();
+		for(Customer customer: customers.values()) {
+			allCustomer.add(customer);
+		}
+		return allCustomer;
 	}
 	
 	/*Create a new product.*/
