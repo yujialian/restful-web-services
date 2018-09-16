@@ -31,15 +31,14 @@ public class CustomersResource {
 		if(customer == null) throw new CustomerNotFoundException("Id-" + id + " customer not found!");
 		return customer;
 	}
-	/*
-	@PostMapping("/users")
-	public ResponseEntity<Object> createUser(@RequestBody Customer customer) {
-		Customer savedCustomer = service.save(customer);
+	
+	@PostMapping("/customers")
+	public ResponseEntity<Object> createCustomer(@RequestBody Customer customer) {
+		Customer savedCustomer = service.createCustomer(customer);
 		
 		/*Create the URI of the location of the resource that is created.
 		 * This will return the current request URI.
-		 * 
-		
+		 * */
 		URI location = ServletUriComponentsBuilder
 		.fromCurrentRequest()
 		.path("/{id}")
@@ -47,6 +46,5 @@ public class CustomersResource {
 		
 		return ResponseEntity.created(location).build();
 	}
-*/
 	
 }
