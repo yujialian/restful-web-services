@@ -21,6 +21,10 @@ public class Transaction {
 			this.transactionId = transactionId;
 		}
 
+		public void setTransactionDate(Date transactionDate) {
+			this.transactionDate = transactionDate;
+		}
+
 		public String getCustomerName() {
 			return customerName;
 		}

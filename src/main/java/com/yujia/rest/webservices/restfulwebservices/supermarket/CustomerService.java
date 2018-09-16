@@ -10,6 +10,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import com.yujia.rest.webservices.restfulwebservices.exception.ArgumentOutOfBoundsException;
+import com.yujia.rest.webservices.restfulwebservices.exception.NotFoundException;
+
 @Component
 public class CustomerService {
 
@@ -59,6 +62,13 @@ public class CustomerService {
 		return allCustomer;
 	}
 	
+	public Customer chargeCustomer(Customer customer) {
+		if(!customers.containsKey(customer.getName())) throw new NotFoundException("Name-" + customer.getName() + " customer not found!");
+		Double remainBalance = customers.get(customer.getName()).getWalletBalance();
+		customers.get(customer.getName()).setWalletBalance(remainBalance + customer.getWalletBalance());
+		return customers.get(customer.getName());
+	}
+	
 	/*Create a new product.*/
 	public Product createProduct(Product product) {
 		if(productsInventory.containsKey(product.getProductName())) {
@@ -103,23 +113,25 @@ public class CustomerService {
 	
 	/*Create a new order.*/
 	public Transaction createTransaction(Transaction transaction) {
-		//Double totalSpend = productsInventory.get(transaction.productName).totalAmount(amount);
 		
 		Double totalSpend = 0.0;
 		for(Map.Entry<String, Integer> entry: transaction.getProducts().entrySet()) {
-			totalSpend += productsInventory.get(entry.getKey()).getPrice() * entry.getValue();
+			if(!productsInventory.containsKey(entry.getKey())) throw new NotFoundException("Product Name-" + entry.getKey() + " Product not found!");
+			totalSpend += productsInventory.get(entry.getKey()).totalAmount(entry.getValue());
 		}
-		
+		if(customers.get(transaction.getCustomerName()) == null) throw new NotFoundException("Customer Name-" + transaction.getCustomerName() + " Customer not found! Please create customer first!");
 		if(customers.get(transaction.getCustomerName()).isSufficient(totalSpend)) {
 			customers.get(transaction.getCustomerName()).spendMoney(totalSpend);
 			transaction.setTransactionId(++transactionId);
+			transaction.setTransactionDate(new Date());
 			if(!customerTransactionHistory.containsKey(transaction.getCustomerName())) {
 				customerTransactionHistory.put(transaction.getCustomerName(), new ArrayList<Transaction>());
 			}
 			customerTransactionHistory.get(transaction.getCustomerName()).add(transaction);
 			return transaction;
+		} else {
+			throw new ArgumentOutOfBoundsException("Balance insufficient. Please charge your balance!");
 		}
-		return null;
 	}
 	
 	/*Delete an existing order.*/
@@ -133,7 +145,6 @@ public class CustomerService {
 				}
 			}
 		}
-		
 		return false;
 	}
 	

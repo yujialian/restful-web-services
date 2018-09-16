@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import com.yujia.rest.webservices.restfulwebservices.supermarket.CustomerNotFoundException;
-
 /*@ControllerAdvice Share exceptions across all the controller.*/
 @ControllerAdvice 
 /*@RestController to indicate that we want to return a JSON error response.*/
@@ -28,11 +26,27 @@ extends ResponseEntityExceptionHandler {
 		return new ResponseEntity(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
-	@ExceptionHandler(CustomerNotFoundException.class)
-	public final ResponseEntity<Object> handleUserNotFoundException(CustomerNotFoundException ex, WebRequest request) throws Exception {
+	@ExceptionHandler(NotFoundException.class)
+	public final ResponseEntity<Object> handleNotFoundException(NotFoundException ex, WebRequest request) throws Exception {
 		ExceptionResponse exceptionResponse = 
 				new ExceptionResponse(new Date(), ex.getMessage(), 
 						request.getDescription(false));
 		return new ResponseEntity(exceptionResponse, HttpStatus.NOT_FOUND);
+	}
+	
+	@ExceptionHandler(MissingArgumentException.class)
+	public final ResponseEntity<Object> handleMissingArgumentException(MissingArgumentException ex, WebRequest request) throws Exception {
+		ExceptionResponse exceptionResponse = 
+				new ExceptionResponse(new Date(), ex.getMessage(),
+						request.getDescription(false));
+		return new ResponseEntity(exceptionResponse, HttpStatus.UNPROCESSABLE_ENTITY);
+	}
+	
+	@ExceptionHandler(ArgumentOutOfBoundsException.class)
+	public final ResponseEntity<Object> handleArgumentOutOfBoundsException(ArgumentOutOfBoundsException ex, WebRequest request) throws Exception {
+		ExceptionResponse exceptionResponse = 
+				new ExceptionResponse(new Date(), ex.getMessage(),
+						request.getDescription(false));
+		return new ResponseEntity(exceptionResponse, HttpStatus.BAD_REQUEST);
 	}
 }
