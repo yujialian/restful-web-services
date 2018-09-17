@@ -37,7 +37,7 @@ Request body:
 
 	**Note:** Will throw `NotFoundException` if no such customer for the id exist.
 
-#### Charge customer: (POST  http://localhost:8080/customers-recharge)
+#### Recharge customer: (POST  http://localhost:8080/customers-recharge)
 
 Request body:
 
